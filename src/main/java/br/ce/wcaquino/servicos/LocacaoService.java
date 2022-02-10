@@ -17,13 +17,10 @@ public class LocacaoService {
 		locacao.setDataLocacao(new Date());
 		locacao.setValor(filme.getPrecoLocacao());
 
-		//Entrega no dia seguinte
 		Date dataEntrega = new Date();
 		dataEntrega = adicionarDias(dataEntrega, 1);
-		locacao.setDataRetorno(dataEntrega);
 		
-		//Salvando a locacao...	
-		//TODO adicionar método para salvar
+		locacao.setDataRetorno(dataEntrega);
 		
 		return locacao;
 	}
