@@ -7,6 +7,7 @@ import java.util.Date;
 import br.ce.wcaquino.entidades.Filme;
 import br.ce.wcaquino.entidades.Locacao;
 import br.ce.wcaquino.entidades.Usuario;
+import br.ce.wcaquino.validador.ValidadorLocacao;
 
 public class LocacaoService {
 	
@@ -21,6 +22,8 @@ public class LocacaoService {
 		dataEntrega = adicionarDias(dataEntrega, 1);
 		
 		locacao.setDataRetorno(dataEntrega);
+		
+		new ValidadorLocacao().validarLocacao(locacao);
 		
 		return locacao;
 	}
