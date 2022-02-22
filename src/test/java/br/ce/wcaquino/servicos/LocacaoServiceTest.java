@@ -76,7 +76,41 @@ public class LocacaoServiceTest {
 							.build();
 				
 		expectedException.expect(RuntimeException.class);
-		expectedException.expectMessage("Não é possível alugar um filme que não contenha estoque");
+		expectedException.expectMessage("Não é possível alugar um filme que não contenha estoque.");
+		
+		service.alugarFilme(usuario, filme);
+	}
+	
+	@Test
+	public void naoDeveAlugarSemTerUmFilmeParaLocacao() {
+		LocacaoService service = new LocacaoService();
+		
+		Usuario usuario = new UsuarioBuilder()
+								.withNome("Rafael")
+								.build();
+		
+		Filme filme = null;
+				
+		expectedException.expect(RuntimeException.class);
+		expectedException.expectMessage("O Filme é obrigatório para a locação de um filme.");
+		
+		service.alugarFilme(usuario, filme);
+	}
+	
+	@Test
+	public void naoDeveAlugarFilmeSemPossuirUmUsuario() {
+		LocacaoService service = new LocacaoService();
+		
+		Usuario usuario = null;
+		
+		Filme filme = new FilmeBuilder()
+							.withNome("Invocação do mal")
+							.withEstoque(0)
+							.withPrecoLocacao(26.1)
+							.build();
+				
+		expectedException.expect(RuntimeException.class);
+		expectedException.expectMessage("O Usuário é obrigatório para a locação de um filme.");
 		
 		service.alugarFilme(usuario, filme);
 	}

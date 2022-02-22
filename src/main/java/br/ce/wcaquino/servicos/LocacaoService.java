@@ -12,10 +12,15 @@ import br.ce.wcaquino.validador.ValidadorLocacao;
 public class LocacaoService {
 	
 	public Locacao alugarFilme(Usuario usuario, Filme filme) {
+		ValidadorLocacao validadorLocacao = new ValidadorLocacao();
+		
 		Locacao locacao = new Locacao();
 		locacao.setFilme(filme);
 		locacao.setUsuario(usuario);
 		locacao.setDataLocacao(new Date());
+		
+		validadorLocacao.validarCamposObrigatorios(locacao);
+
 		locacao.setValor(filme.getPrecoLocacao());
 
 		Date dataEntrega = new Date();
@@ -23,7 +28,7 @@ public class LocacaoService {
 		
 		locacao.setDataRetorno(dataEntrega);
 		
-		new ValidadorLocacao().validarLocacao(locacao);
+		validadorLocacao.naoPermitirAlugarFilmeSemEstoque(filme);
 		
 		return locacao;
 	}

@@ -3,7 +3,7 @@ package br.ce.wcaquino.utils;
 public class ObjectUtil {
 
 	public static Boolean isNull(Object object) {
-		return object.equals(null);
+		return object == null;
 	}
 	
 	public static Boolean isNotNull(Object object) {
