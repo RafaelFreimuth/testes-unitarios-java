@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Date;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -19,12 +20,18 @@ import br.ce.wcaquino.entidades.Usuario;
 
 public class LocacaoServiceTest {
 
+	private LocacaoService service;
+	
 	@Rule
 	public ExpectedException expectedException = ExpectedException.none();
 	
+	@Before
+	public void setup() {
+		this.service = new LocacaoService();
+	}
+	
 	@Test
 	public void deveAlugarFilmeComEstoqueDisponivel() {
-		LocacaoService service = new LocacaoService();
 		
 		Usuario usuario = new UsuarioBuilder()
 								.withNome("Rafael")
@@ -46,8 +53,6 @@ public class LocacaoServiceTest {
 	
 	@Test(expected = RuntimeException.class)
 	public void naoDeveAlugarUmFilmeQueNaoTenhaEstoque() {
-		LocacaoService service = new LocacaoService();
-		
 		Usuario usuario = new UsuarioBuilder()
 								.withNome("Rafael")
 								.build();
@@ -63,8 +68,6 @@ public class LocacaoServiceTest {
 	
 	@Test
 	public void naoDeveAlugarUmFilmeQueNaoTenhaEstoqueComVerificacaoComRule() {
-		LocacaoService service = new LocacaoService();
-		
 		Usuario usuario = new UsuarioBuilder()
 								.withNome("Rafael")
 								.build();
@@ -83,8 +86,6 @@ public class LocacaoServiceTest {
 	
 	@Test
 	public void naoDeveAlugarSemTerUmFilmeParaLocacao() {
-		LocacaoService service = new LocacaoService();
-		
 		Usuario usuario = new UsuarioBuilder()
 								.withNome("Rafael")
 								.build();
@@ -99,8 +100,6 @@ public class LocacaoServiceTest {
 	
 	@Test
 	public void naoDeveAlugarFilmeSemPossuirUmUsuario() {
-		LocacaoService service = new LocacaoService();
-		
 		Usuario usuario = null;
 		
 		Filme filme = new FilmeBuilder()
